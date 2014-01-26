@@ -16,7 +16,7 @@ public class ContractGateway {
 	private Connection db;
 
 	private static final String insertContracctStatement = "INSERT INTO contracts VALUES (0, ?, ?, ?)";
-	private static final String deleteContractStatement = "DELETE FROM contracts WHERE id = ?";
+	private static final String deleteContractStatement = "DELETE FROM contracts WHERE contractId = ?";
 
 	public ContractGateway() {
 		DatabaseConnector dbConnector = new DatabaseConnector(DBNAME);

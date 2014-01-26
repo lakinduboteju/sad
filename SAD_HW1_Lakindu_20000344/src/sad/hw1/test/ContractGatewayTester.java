@@ -37,6 +37,7 @@ public class ContractGatewayTester {
 		ProductGateway pg = new ProductGateway();
 		try {
 			pg.deleteProduct(productID);
+			pg.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

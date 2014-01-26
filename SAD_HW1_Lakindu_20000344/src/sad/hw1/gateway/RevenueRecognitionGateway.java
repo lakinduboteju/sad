@@ -25,7 +25,7 @@ public class RevenueRecognitionGateway {
 			+ "WHERE contract = ? AND recognizedOn <= ?";
 	private static final String findContractStatement = "SELECT * "
 			+ "FROM contracts c, products p "
-			+ "WHERE id = ? AND c.product = p.id";
+			+ "WHERE contractId = ? AND c.product = p.productId";
 	private static final String insertRecognitionStatement = "INSERT INTO revenueRecognitions VALUES (?, ?, ?)";
 
 	public RevenueRecognitionGateway() {

@@ -14,7 +14,7 @@ public class ProductGateway {
 	private Connection db;
 
 	private static final String insertProductsStatement = "INSERT INTO products VALUES (0, ?, ?)";
-	private static final String deleteProductsStatement = "DELETE FROM products WHERE id = ?";
+	private static final String deleteProductsStatement = "DELETE FROM products WHERE productId = ?";
 
 	public ProductGateway() {
 		DatabaseConnector dbConnector = new DatabaseConnector(DBNAME);
