@@ -33,6 +33,13 @@ public class ContractGatewayTester {
 			e.printStackTrace();
 		}
 		assertTrue(contractID > 0);
+		
+		ProductGateway pg = new ProductGateway();
+		try {
+			pg.deleteProduct(productID);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 }
