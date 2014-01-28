@@ -30,7 +30,6 @@ public class ContractGateway {
 		stmt.setBigDecimal(1, revenue.amount());
 		stmt.setDate(2, dateSigned.toSqlDate());
 		stmt.setLong(3, productID);
-		stmt.executeUpdate();
 		ResultSet resultSet = stmt.getGeneratedKeys();
 		if (resultSet.next()) {
 			return resultSet.getLong(1);
@@ -42,7 +41,6 @@ public class ContractGateway {
 	public void deleteContract(long productID) throws SQLException {
 		PreparedStatement stmt = db.prepareStatement(deleteContractStatement);
 		stmt.setLong(1, productID);
-		stmt.executeUpdate();
 	}
 
 	public void close() throws SQLException {

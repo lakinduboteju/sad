@@ -53,8 +53,10 @@ public class RevenueRecognitionService {
 	 * 
 	 * @param contractNumber
 	 *            id of contract
+	 * @throws ApplicationException
 	 */
-	public void calculateRevenueRecognitions(long contractNumber) {
+	public void calculateRevenueRecognitions(long contractNumber)
+			throws ApplicationException {
 		try {
 			ResultSet contracts = db.findContract(contractNumber);
 			contracts.next();
@@ -83,7 +85,7 @@ public class RevenueRecognitionService {
 						recognitionDate.addDays(60));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new ApplicationException(e);
 		}
 	}
 
