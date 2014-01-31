@@ -1,4 +1,4 @@
-package sad.hw1.test;
+package sad.hw1.ts.test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;

@@ -1,10 +1,8 @@
 package sad.hw1.gateway;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import sad.util.DatabaseConnector;
 import sad.util.MfDate;
 import sad.util.Money;
 
@@ -17,9 +15,7 @@ import sad.util.Money;
  * @author Martin Fowler
  * 
  */
-public class RevenueRecognitionGateway {
-	private final String DBNAME = "sad_transaction";
-	private Connection db;
+public class RevenueRecognitionGateway extends Gateway{
 	private static final String findRecognitionsStatement = "SELECT amount "
 			+ "FROM revenueRecognitions "
 			+ "WHERE contract = ? AND recognizedOn <= ?";
@@ -29,8 +25,7 @@ public class RevenueRecognitionGateway {
 	private static final String insertRecognitionStatement = "INSERT INTO revenueRecognitions VALUES (?, ?, ?)";
 
 	public RevenueRecognitionGateway() {
-		DatabaseConnector dbConnector = new DatabaseConnector(DBNAME);
-		db = dbConnector.getConnection();
+		super();
 	}
 
 	public ResultSet findRecognitionsFor(long contractID, MfDate asof)
@@ -57,9 +52,5 @@ public class RevenueRecognitionGateway {
 		stmt.setBigDecimal(2, amount.amount());
 		stmt.setDate(3, asof.toSqlDate());
 		stmt.executeUpdate();
-	}
-
-	public void close() throws SQLException {
-		db.close();
 	}
 }

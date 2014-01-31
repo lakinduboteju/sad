@@ -11,12 +11,13 @@ import java.util.GregorianCalendar;
  * @author lakindu
  * 
  */
-public class MfDate extends GregorianCalendar {
+public class MfDate {
+	private GregorianCalendar calendar;
 	/**
 	 * Constructs a date
 	 */
 	public MfDate() {
-		super();
+		calendar = new GregorianCalendar();
 	}
 
 	/**
@@ -30,15 +31,15 @@ public class MfDate extends GregorianCalendar {
 	 *            Day (eg: 1, 2, ..., 31)
 	 */
 	public MfDate(int year, int month, int day) {
-		super(year, (month - 1), day); // in GregorianCalendar month is
+		calendar = new GregorianCalendar(year, (month - 1), day); // in GregorianCalendar month is
 										// represented from 0 to 11 (0 for
 										// January, ..., 11 for December)
 	}
 	
 	public MfDate(Date date)
 	{
-		super();
-		setTime(date);
+		calendar = new GregorianCalendar();
+		calendar.setTime(date);
 	}
 
 	/**
@@ -47,8 +48,8 @@ public class MfDate extends GregorianCalendar {
 	 * @return java.sql.Date object of MfDate
 	 */
 	public Date toSqlDate() {
-		return Date.valueOf(get(Calendar.YEAR) + "-"
-				+ (get(Calendar.MONTH) + 1) + "-" + get(Calendar.DAY_OF_MONTH));
+		return Date.valueOf(calendar.get(Calendar.YEAR) + "-"
+				+ (calendar.get(Calendar.MONTH) + 1) + "-" + calendar.get(Calendar.DAY_OF_MONTH));
 	}
 
 	/**
@@ -57,11 +58,11 @@ public class MfDate extends GregorianCalendar {
 	 * @return new Date with added days
 	 */
 	public MfDate addDays(int numberOfDays) {
-		int year = this.get(Calendar.YEAR);
-		int month = this.get(Calendar.MONTH);
-		int day = this.get(Calendar.DAY_OF_MONTH);
-		MfDate retDate = new MfDate(year, month, day);
-		retDate.add(Calendar.DAY_OF_MONTH, numberOfDays);
+		int year = calendar.get(Calendar.YEAR);
+		int month = calendar.get(Calendar.MONTH);
+		int day = calendar.get(Calendar.DAY_OF_MONTH);
+		MfDate retDate = new MfDate(year, (month+1), day);
+		retDate.calendar.add(Calendar.DAY_OF_MONTH, numberOfDays);
 		return retDate;
 	}
 
@@ -72,7 +73,7 @@ public class MfDate extends GregorianCalendar {
 	 *            Year (eg: 2013, 2014)
 	 */
 	public void setYear(int year) {
-		set(Calendar.YEAR, year);
+		calendar.set(Calendar.YEAR, year);
 	}
 
 	/**
@@ -83,7 +84,7 @@ public class MfDate extends GregorianCalendar {
 	 *            December)
 	 */
 	public void setMonth(int month) {
-		set(Calendar.MONTH, (month-1));
+		calendar.set(Calendar.MONTH, (month-1));
 	}
 
 	/**
@@ -93,7 +94,12 @@ public class MfDate extends GregorianCalendar {
 	 *            Day (eg: 1, 2, ..., 31)
 	 */
 	public void setDay(int day) {
-		set(Calendar.DAY_OF_MONTH, day);
+		calendar.set(Calendar.DAY_OF_MONTH, day);
+	}
+	
+	public boolean after(MfDate date)
+	{
+		return calendar.after(date.calendar);
 	}
 
 	@Override
@@ -101,9 +107,9 @@ public class MfDate extends GregorianCalendar {
 		if(obj instanceof MfDate)
 		{
 			MfDate tempDate = (MfDate) obj;
-			if(tempDate.get(Calendar.YEAR) == this.get(Calendar.YEAR) &&
-					tempDate.get(Calendar.MONTH) == this.get(Calendar.MONTH) &&
-					tempDate.get(Calendar.DAY_OF_MONTH) == this.get(Calendar.DAY_OF_MONTH))
+			if(tempDate.calendar.get(Calendar.YEAR) == calendar.get(Calendar.YEAR) &&
+					tempDate.calendar.get(Calendar.MONTH) == calendar.get(Calendar.MONTH) &&
+					tempDate.calendar.get(Calendar.DAY_OF_MONTH) == calendar.get(Calendar.DAY_OF_MONTH))
 			{
 				return true;
 			}
@@ -113,17 +119,17 @@ public class MfDate extends GregorianCalendar {
 
 	@Override
 	public int hashCode() {
-		int year = this.get(Calendar.YEAR);
-		int month = this.get(Calendar.MONTH);
-		int day = this.get(Calendar.DAY_OF_MONTH);
+		int year = calendar.get(Calendar.YEAR);
+		int month = calendar.get(Calendar.MONTH);
+		int day = calendar.get(Calendar.DAY_OF_MONTH);
 		return (int)((year ^ (year >>> 32)) + (month ^ (month >>> 32)) + (day ^ (day >>> 32)));
 	}
 
 	@Override
 	public String toString() {
-		int year = this.get(Calendar.YEAR);
-		int month = this.get(Calendar.MONTH);
-		int day = this.get(Calendar.DAY_OF_MONTH);
+		int year = calendar.get(Calendar.YEAR);
+		int month = calendar.get(Calendar.MONTH);
+		int day = calendar.get(Calendar.DAY_OF_MONTH);
 		return year + "-" + month + "-" + day;
 	}
 }

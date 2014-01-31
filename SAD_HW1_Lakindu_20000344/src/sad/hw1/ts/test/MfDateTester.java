@@ -1,4 +1,4 @@
-package sad.hw1.test;
+package sad.hw1.ts.test;
 
 import static org.junit.Assert.*;
 
@@ -13,8 +13,7 @@ public class MfDateTester {
 	@Test
 	public void testAddDays() {
 		MfDate d = new MfDate(2014, 1, 30);
-		d.addDays(3);
-		assertEquals("2014-1-30 + 3days = 2014-2-2", new MfDate(2014, 2, 2), d);
+		assertEquals("2014-1-30 + 3days = 2014-2-2", new MfDate(2014, 2, 2), d.addDays(3));
 	}
 	
 	@Test
@@ -26,4 +25,10 @@ public class MfDateTester {
 		assertEquals("2014-1-31", Date.valueOf("2014-1-31"), d.toSqlDate());
 	}
 
+	@Test
+	public void testAfter()
+	{
+		MfDate d = new MfDate(2014, 1, 31);
+		assertFalse(d.after(new MfDate(2014, 2, 1)));
+	}
 }

@@ -1,4 +1,4 @@
-package sad.hw1.test;
+package sad.hw1.ts.test;
 
 import static org.junit.Assert.*;
 
@@ -37,7 +37,6 @@ public class ContractGatewayTester {
 		ProductGateway pg = new ProductGateway();
 		try {
 			pg.deleteProduct(productID);
-			pg.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
